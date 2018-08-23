@@ -7,7 +7,6 @@ import static org.junit.Assert.*;
 
 public class ChessPiecesPawnTest {
 
-
     @Test
     public void shouldBeAbleToGoToNextPosGivenItEmptyAhead() {
         int[][] board = new int[8][8];
@@ -61,5 +60,16 @@ public class ChessPiecesPawnTest {
         Position current = new Position(-1, -1);
         boolean response = PAWN.getValidatePosition().test(goTo, current, board);
         assertFalse(response);
+    }
+
+    @Test
+    public void shouldBeAbleToGoToNextPosGivenItsDiagonalAndItsNotEmpty() {
+        int[][] board = new int[8][8];
+        board[0][0] = 26;
+        board[1][1] = 22;
+        Position goTo = new Position(1, 1);
+        Position current = new Position(0, 0);
+        boolean response = PAWN.getValidatePosition().test(goTo, current, board);
+        assertTrue(response);
     }
 }
