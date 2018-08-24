@@ -41,7 +41,6 @@ jacocoTestReport {
 }
 
 pitest {
-    println sourceSets.main
     targetClasses = ['chess.*']  //by default "${project.group}.*"
     targetTests = ['chess.*Test*']
 }
