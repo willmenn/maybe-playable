@@ -5,7 +5,7 @@ import chess.util.TriPredicate;
 public enum ChessPieces {
     KING(1, (position, current, board) -> true),
     QUEEN(2, (position, current, board) -> true),
-    ROOK(3, (position, current, board) -> true),
+    ROOK(3, getRookValidatePos()),
     BISHOP(4, (position, current, board) -> true),
     KNIGHT(5, (position, current, board) -> true),
     PAWN(6, pawnValidatePos());
@@ -39,7 +39,7 @@ public enum ChessPieces {
 
     private static TriPredicate<Position, Position, int[][]> pawnValidatePos() {
         return (position, current, board) -> {
-            if (isInsideTheBoard(position)) {
+            if (isOutsideTheBoard(position)) {
                 return false;
             }
             if (position.column.equals(current.column)
@@ -54,8 +54,19 @@ public enum ChessPieces {
         };
     }
 
-    private static boolean isInsideTheBoard(Position position) {
-        return position.column > 7 || position.row > 7;
+    private static TriPredicate<Position, Position, int[][]> getRookValidatePos() {
+        return (position, current, board) -> {
+            if (isOutsideTheBoard(position) || isDiagonalMove(position, current)) {
+                return false;
+            }
+            //TODO: WIP
+            return true;
+        };
+    }
+
+    private static boolean isOutsideTheBoard(Position position) {
+        return position.column > 7 || position.row > 7
+                || position.column < 0 || position.row < 0;
     }
 
     private static boolean isPosEmpty(int[][] board, int row, int column) {
@@ -67,7 +78,9 @@ public enum ChessPieces {
     }
 
     private static boolean isDiagonalMove(Position position, Position current) {
-        return position.column - current.column == 1 || position.column - current.column == -1;
+        return (position.column - current.column == 1
+                || position.column - current.column == -1)
+                && position.row - current.row != 0;
     }
 
     static ChessPieces valueOfToObject(int numberRepresentation) {
