@@ -39,16 +39,16 @@ public enum ChessPieces {
 
     private static TriPredicate<Position, Position, int[][]> pawnValidatePos() {
         return (position, current, board) -> {
-            if (isOutsideTheBoard(position)) {
+            if (isOutsideTheBoard(position) || isOutsideTheBoard(current)) {
                 return false;
             }
             if (position.column.equals(current.column)
-                    && isAhead(position, current)
+                    && isAhead(position, current, 1)
                     && isPosEmpty(board, position.row, position.column)) {
                 return true;
             } else {
                 return isDiagonalMove(position, current)
-                        && isAhead(position, current)
+                        && isAhead(position, current, 1)
                         && !isPosEmpty(board, position.row, position.column);
             }
         };
@@ -73,8 +73,8 @@ public enum ChessPieces {
         return board[row][column] == 0;
     }
 
-    private static boolean isAhead(Position position, Position current) {
-        return position.row - current.row > 0;
+    private static boolean isAhead(Position position, Position current, int posAvailableToGoForward) {
+        return position.row - current.row > 0 && position.row - current.row == posAvailableToGoForward;
     }
 
     private static boolean isDiagonalMove(Position position, Position current) {

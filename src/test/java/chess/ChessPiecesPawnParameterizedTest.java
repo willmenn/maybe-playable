@@ -20,10 +20,77 @@ public class ChessPiecesPawnParameterizedTest {
     public static Collection<ChessParameterized> data() {
         return Arrays.asList(
                 bChessParameterized(
-                        new Position(1, 0),
+                        new Position(1, 0), // Pawn goes to front pos
                         new Position(0, 0),
-                        new int[][]{{26}, {0}},
-                        true));
+                        new int[][]{{26}, {0}}, true),
+                bChessParameterized(
+                        new Position(2, 0), // Pawn goes to front pos but its 2 rows
+                        new Position(0, 0),
+                        new int[][]{{26}, {0}}, false),
+                bChessParameterized(
+                        new Position(0, 0), // GoTo pos is the same as current
+                        new Position(0, 0),
+                        new int[][]{{26}, {0}}, false),
+                bChessParameterized(
+                        new Position(0, 0), // Going backwards
+                        new Position(1, 0),
+                        new int[][]{{0}, {26}}, false),
+                bChessParameterized(
+                        new Position(1, 1), // Diagonal(front/right) Pos is empty
+                        new Position(0, 0),
+                        new int[][]{{26}, {0, 0}}, false),
+                bChessParameterized(
+                        new Position(1, 0), // Diagonal(front/left) Pos is empty
+                        new Position(0, 1),
+                        new int[][]{{0, 26}, {0, 0}}, false),
+                bChessParameterized(
+                        new Position(0, 0), // Diagonal Backwards(front/right) Pos is empty
+                        new Position(1, 1),
+                        new int[][]{{0, 0}, {0, 26}}, false),
+                bChessParameterized(
+                        new Position(0, 1), // Diagonal Backwards(front/left) Pos is empty
+                        new Position(1, 0),
+                        new int[][]{{0, 0}, {1, 0}}, false),
+                bChessParameterized(
+                        new Position(1, 1), // Diagonal(front/right) Pos is NOT empty
+                        new Position(0, 0),
+                        new int[][]{{26}, {0, 24}}, true),
+                bChessParameterized(
+                        new Position(1, 0), // Diagonal(front/left) Pos is NOT empty
+                        new Position(0, 1),
+                        new int[][]{{0, 26}, {24, 0}}, true),
+                bChessParameterized(
+                        new Position(8, 0), // Out Of the board
+                        new Position(1, 0),
+                        new int[][]{{0}, {26}}, false),
+                bChessParameterized(
+                        new Position(0, 8), // Out Of the board
+                        new Position(1, 0),
+                        new int[][]{{0}, {26}}, false),
+                bChessParameterized(
+                        new Position(-1, 0), // Out of the board
+                        new Position(1, 0),
+                        new int[][]{{0}, {26}}, false),
+                bChessParameterized(
+                        new Position(0, -1), // Out of the board
+                        new Position(1, 0),
+                        new int[][]{{0}, {26}}, false),
+                bChessParameterized(
+                        new Position(0, 0), //Current is Out of the board
+                        new Position(1, 8),
+                        new int[][]{{0}, {26}}, false),
+                bChessParameterized(
+                        new Position(0, 0), // Current is Out of the board
+                        new Position(8, 0),
+                        new int[][]{{0}, {26}}, false),
+                bChessParameterized(
+                        new Position(0, 0), // Current is Out of the board
+                        new Position(-1, 0),
+                        new int[][]{{0}, {26}}, false),
+                bChessParameterized(
+                        new Position(0, 0), // Current is Out of the board
+                        new Position(0, -1),
+                        new int[][]{{0}, {26}}, false));
     }
 
     public ChessPiecesPawnParameterizedTest(ChessParameterized paramTest) {
