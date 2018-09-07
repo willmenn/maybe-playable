@@ -50,7 +50,7 @@ public class ChessPiecesPawnParameterizedTest {
                 bChessParameterized(
                         new Position(0, 1), // Diagonal Backwards(front/left) Pos is empty
                         new Position(1, 0),
-                        new int[][]{{0, 0}, {1, 0}}, false),
+                        new int[][]{{0, 0}, {26, 0}}, false),
                 bChessParameterized(
                         new Position(1, 1), // Diagonal(front/right) Pos is NOT empty
                         new Position(0, 0),
@@ -90,7 +90,15 @@ public class ChessPiecesPawnParameterizedTest {
                 bChessParameterized(
                         new Position(0, 0), // Current is Out of the board
                         new Position(0, -1),
-                        new int[][]{{0}, {26}}, false));
+                        new int[][]{{0}, {26}}, false),
+                bChessParameterized(
+                        new Position(3, 0), // Move 2 positions forward given its the first time
+                        new Position(1, 0),
+                        new int[][]{{0}, {26}, {0}, {0}}, true),
+                bChessParameterized(
+                        new Position(4, 0), // Move 2 positions forward given its the first time
+                        new Position(6, 0),
+                        new int[][]{{0}, {0}, {0}, {0}, {0}, {0}, {16}, {0}}, true));
     }
 
     public ChessPiecesPawnParameterizedTest(ChessParameterized paramTest) {

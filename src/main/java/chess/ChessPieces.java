@@ -42,13 +42,19 @@ public enum ChessPieces {
             if (isOutsideTheBoard(position) || isOutsideTheBoard(current)) {
                 return false;
             }
+            ChessTypeOfPieces type = ChessTypeOfPieces.valueOf(board[current.row][current.column]);
             if (position.column.equals(current.column)
-                    && isAhead(position, current, 1)
+                    && isAhead(position, current, 1, type)
+                    && isPosEmpty(board, position.row, position.column)) {
+                return true;
+            } else if (position.column.equals(current.column)
+                    && (current.row == 1 || current.row == 6)
+                    && isAhead(position, current, 2, type)
                     && isPosEmpty(board, position.row, position.column)) {
                 return true;
             } else {
                 return isDiagonalMove(position, current)
-                        && isAhead(position, current, 1)
+                        && isAhead(position, current, 1, type)
                         && !isPosEmpty(board, position.row, position.column);
             }
         };
@@ -73,8 +79,10 @@ public enum ChessPieces {
         return board[row][column] == 0;
     }
 
-    private static boolean isAhead(Position position, Position current, int posAvailableToGoForward) {
-        return position.row - current.row > 0 && position.row - current.row == posAvailableToGoForward;
+    private static boolean isAhead(Position position, Position current, int posAvailableToGoForward,
+                                   ChessTypeOfPieces type) {
+        return type.getValidMovement().test(position.row - current.row)
+                && Math.abs(position.row - current.row) == posAvailableToGoForward;
     }
 
     private static boolean isDiagonalMove(Position position, Position current) {
