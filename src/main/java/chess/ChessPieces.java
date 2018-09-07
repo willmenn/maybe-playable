@@ -6,7 +6,7 @@ import static chess.ChessPiecesFunction.isDiagonalAndNotEmptyPos;
 import static chess.ChessPiecesFunction.isDiagonalMove;
 import static chess.ChessPiecesFunction.isNextPosAhead;
 import static chess.ChessPiecesFunction.isOutSideTheBoard;
-import static chess.ChessPiecesFunction.isPawnAbleToGo2Postions;
+import static chess.ChessPiecesFunction.isPawnAbleToGo2Positions;
 
 public enum ChessPieces {
     KING(1, (position, current, board) -> true),
@@ -52,7 +52,7 @@ public enum ChessPieces {
             ChessTypeOfPieces type = ChessTypeOfPieces.valueOf(board[current.row][current.column]);
             if (isNextPosAhead(current, position, board, type)) {
                 return true;
-            } else if (isPawnAbleToGo2Postions(current, position, board, type)) {
+            } else if (isPawnAbleToGo2Positions(current, position, board, type)) {
                 return true;
             } else {
                 return isDiagonalAndNotEmptyPos(current, position, board, type);

@@ -28,9 +28,9 @@ class ChessPiecesFunction {
         return isOutsideTheBoard(current) || isOutsideTheBoard(goTo);
     }
 
-    static boolean isPawnAbleToGo2Postions(Position current,
-                                           Position goTo, int[][] board,
-                                           ChessTypeOfPieces type) {
+    static boolean isPawnAbleToGo2Positions(Position current,
+                                            Position goTo, int[][] board,
+                                            ChessTypeOfPieces type) {
         return goTo.column.equals(current.column)
                 && (current.row == 1 || current.row == 6)
                 && isAhead(goTo, current, 2, type)
