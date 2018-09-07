@@ -4,6 +4,7 @@ plugins {
     id 'jacoco'
 }
 
+apply from: 'gradle/scripts/idea.gradle'
 group 'chess-case-study'
 version '1.0-SNAPSHOT'
 
