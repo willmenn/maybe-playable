@@ -2,6 +2,12 @@ package chess;
 
 import chess.util.TriPredicate;
 
+import static chess.ChessPiecesFunction.isDiagonalAndNotEmptyPos;
+import static chess.ChessPiecesFunction.isDiagonalMove;
+import static chess.ChessPiecesFunction.isNextPosAhead;
+import static chess.ChessPiecesFunction.isOutSideTheBoard;
+import static chess.ChessPiecesFunction.isPawnAbleToGo2Postions;
+
 public enum ChessPieces {
     KING(1, (position, current, board) -> true),
     QUEEN(2, (position, current, board) -> true),
@@ -39,57 +45,29 @@ public enum ChessPieces {
 
     private static TriPredicate<Position, Position, int[][]> pawnValidatePos() {
         return (position, current, board) -> {
-            if (isOutsideTheBoard(position) || isOutsideTheBoard(current)) {
+            if (isOutSideTheBoard(current, position)) {
                 return false;
             }
 
             ChessTypeOfPieces type = ChessTypeOfPieces.valueOf(board[current.row][current.column]);
-            if (position.column.equals(current.column)
-                    && isAhead(position, current, 1, type)
-                    && isPosEmpty(board, position.row, position.column)) {
+            if (isNextPosAhead(current, position, board, type)) {
                 return true;
-            } else if (position.column.equals(current.column)
-                    && (current.row == 1 || current.row == 6)
-                    && isAhead(position, current, 2, type)
-                    && isPosEmpty(board, position.row, position.column)) {
+            } else if (isPawnAbleToGo2Postions(current, position, board, type)) {
                 return true;
             } else {
-                return isDiagonalMove(position, current)
-                        && isAhead(position, current, 1, type)
-                        && !isPosEmpty(board, position.row, position.column);
+                return isDiagonalAndNotEmptyPos(current, position, board, type);
             }
         };
     }
 
     private static TriPredicate<Position, Position, int[][]> getRookValidatePos() {
         return (position, current, board) -> {
-            if (isOutsideTheBoard(position) || isDiagonalMove(position, current)) {
+            if (isOutSideTheBoard(current, position) || isDiagonalMove(current, position)) {
                 return false;
             }
             //TODO: WIP
             return true;
         };
-    }
-
-    private static boolean isOutsideTheBoard(Position position) {
-        return position.column > 7 || position.row > 7
-                || position.column < 0 || position.row < 0;
-    }
-
-    private static boolean isPosEmpty(int[][] board, int row, int column) {
-        return board[row][column] == 0;
-    }
-
-    private static boolean isAhead(Position position, Position current, int posAvailableToGoForward,
-                                   ChessTypeOfPieces type) {
-        return type.getValidMovement().test(position.row - current.row)
-                && Math.abs(position.row - current.row) == posAvailableToGoForward;
-    }
-
-    private static boolean isDiagonalMove(Position position, Position current) {
-        return (position.column - current.column == 1
-                || position.column - current.column == -1)
-                && position.row - current.row != 0;
     }
 
     static ChessPieces valueOfToObject(int numberRepresentation) {
