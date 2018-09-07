@@ -42,6 +42,7 @@ public enum ChessPieces {
             if (isOutsideTheBoard(position) || isOutsideTheBoard(current)) {
                 return false;
             }
+
             ChessTypeOfPieces type = ChessTypeOfPieces.valueOf(board[current.row][current.column]);
             if (position.column.equals(current.column)
                     && isAhead(position, current, 1, type)

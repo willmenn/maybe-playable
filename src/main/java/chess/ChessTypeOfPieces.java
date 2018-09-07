@@ -34,6 +34,7 @@ public enum ChessTypeOfPieces {
         if (value == 0) {
             throw new EmptyPositionException();
         }
+        
         if (value - WHITE.numberRepresentation < 10 && value - WHITE.numberRepresentation > 0) {
             return WHITE;
         } else if (value - BLACK.numberRepresentation < 10 && value - BLACK.numberRepresentation > 0) {
