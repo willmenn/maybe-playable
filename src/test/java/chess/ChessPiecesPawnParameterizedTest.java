@@ -3,6 +3,7 @@ package chess;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.Parameterized;
+import org.junit.runners.Parameterized.Parameters;
 
 import java.util.Arrays;
 import java.util.Collection;
@@ -16,89 +17,109 @@ public class ChessPiecesPawnParameterizedTest {
 
     private ChessParameterized paramTest;
 
-    @Parameterized.Parameters
+    @Parameters
     public static Collection<ChessParameterized> data() {
         return Arrays.asList(
                 bChessParameterized(
-                        new Position(1, 0), // Pawn goes to front pos
-                        new Position(0, 0),
-                        new int[][]{{26}, {0}}, true),
-                bChessParameterized(
-                        new Position(2, 0), // Pawn goes to front pos but its 2 rows
-                        new Position(0, 0),
-                        new int[][]{{26}, {0}}, false),
-                bChessParameterized(
-                        new Position(0, 0), // GoTo pos is the same as current
-                        new Position(0, 0),
-                        new int[][]{{26}, {0}}, false),
-                bChessParameterized(
-                        new Position(0, 0), // Going backwards
                         new Position(1, 0),
-                        new int[][]{{0}, {26}}, false),
-                bChessParameterized(
-                        new Position(1, 1), // Diagonal(front/right) Pos is empty
                         new Position(0, 0),
-                        new int[][]{{26}, {0, 0}}, false),
+                        new int[][]{{26}, {0}}, true,
+                        "Pawn goes to front pos"),
                 bChessParameterized(
-                        new Position(1, 0), // Diagonal(front/left) Pos is empty
-                        new Position(0, 1),
-                        new int[][]{{0, 26}, {0, 0}}, false),
+                        new Position(2, 0),
+                        new Position(0, 0),
+                        new int[][]{{26}, {0}}, false,
+                        "Pawn goes to front pos but its 2 rows"),
                 bChessParameterized(
-                        new Position(0, 0), // Diagonal Backwards(front/right) Pos is empty
+                        new Position(0, 0),
+                        new Position(0, 0),
+                        new int[][]{{26}, {0}}, false,
+                        "GoTo pos is the same as current"),
+                bChessParameterized(
+                        new Position(0, 0),
+                        new Position(1, 0),
+                        new int[][]{{0}, {26}}, false,
+                        "Going backwards"),
+                bChessParameterized(
                         new Position(1, 1),
-                        new int[][]{{0, 0}, {0, 26}}, false),
-                bChessParameterized(
-                        new Position(0, 1), // Diagonal Backwards(front/left) Pos is empty
-                        new Position(1, 0),
-                        new int[][]{{0, 0}, {26, 0}}, false),
-                bChessParameterized(
-                        new Position(1, 1), // Diagonal(front/right) Pos is NOT empty
                         new Position(0, 0),
-                        new int[][]{{26}, {0, 24}}, true),
+                        new int[][]{{26}, {0, 0}}, false,
+                        "Diagonal(front/right) Pos is empty"),
                 bChessParameterized(
-                        new Position(1, 0), // Diagonal(front/left) Pos is NOT empty
+                        new Position(1, 0),
                         new Position(0, 1),
-                        new int[][]{{0, 26}, {24, 0}}, true),
+                        new int[][]{{0, 26}, {0, 0}}, false,
+                        "Diagonal(front/left) Pos is empty"),
                 bChessParameterized(
-                        new Position(8, 0), // Out Of the board
+                        new Position(0, 0),
+                        new Position(1, 1),
+                        new int[][]{{0, 0}, {0, 26}}, false,
+                        "Diagonal Backwards(front/right) Pos is empty"),
+                bChessParameterized(
+                        new Position(0, 1),
                         new Position(1, 0),
-                        new int[][]{{0}, {26}}, false),
+                        new int[][]{{0, 0}, {26, 0}}, false,
+                        "Diagonal Backwards(front/left) Pos is empty"),
                 bChessParameterized(
-                        new Position(0, 8), // Out Of the board
+                        new Position(1, 1),
+                        new Position(0, 0),
+                        new int[][]{{26}, {0, 24}}, true,
+                        "Diagonal(front/right) Pos is NOT empty"),
+                bChessParameterized(
                         new Position(1, 0),
-                        new int[][]{{0}, {26}}, false),
+                        new Position(0, 1),
+                        new int[][]{{0, 26}, {24, 0}}, true,
+                        "Diagonal(front/left) Pos is NOT empty"),
                 bChessParameterized(
-                        new Position(-1, 0), // Out of the board
-                        new Position(1, 0),
-                        new int[][]{{0}, {26}}, false),
-                bChessParameterized(
-                        new Position(0, -1), // Out of the board
-                        new Position(1, 0),
-                        new int[][]{{0}, {26}}, false),
-                bChessParameterized(
-                        new Position(0, 0), //Current is Out of the board
-                        new Position(1, 8),
-                        new int[][]{{0}, {26}}, false),
-                bChessParameterized(
-                        new Position(0, 0), // Current is Out of the board
                         new Position(8, 0),
-                        new int[][]{{0}, {26}}, false),
-                bChessParameterized(
-                        new Position(0, 0), // Current is Out of the board
-                        new Position(-1, 0),
-                        new int[][]{{0}, {26}}, false),
-                bChessParameterized(
-                        new Position(0, 0), // Current is Out of the board
-                        new Position(0, -1),
-                        new int[][]{{0}, {26}}, false),
-                bChessParameterized(
-                        new Position(3, 0), // Move 2 positions forward given its the first time
                         new Position(1, 0),
-                        new int[][]{{0}, {26}, {0}, {0}}, true),
+                        new int[][]{{0}, {26}}, false,
+                        "Out Of the board"),
                 bChessParameterized(
-                        new Position(4, 0), // Move 2 positions forward given its the first time
+                        new Position(0, 8),
+                        new Position(1, 0),
+                        new int[][]{{0}, {26}}, false,
+                        "Out Of the board"),
+                bChessParameterized(
+                        new Position(-1, 0),
+                        new Position(1, 0),
+                        new int[][]{{0}, {26}}, false,
+                        "Out of the board"),
+                bChessParameterized(
+                        new Position(0, -1),
+                        new Position(1, 0),
+                        new int[][]{{0}, {26}}, false,
+                        "Out of the board"),
+                bChessParameterized(
+                        new Position(0, 0),
+                        new Position(1, 8),
+                        new int[][]{{0}, {26}}, false,
+                        "Current is Out of the board"),
+                bChessParameterized(
+                        new Position(0, 0),
+                        new Position(8, 0),
+                        new int[][]{{0}, {26}}, false,
+                        "Current is Out of the board"),
+                bChessParameterized(
+                        new Position(0, 0),
+                        new Position(-1, 0),
+                        new int[][]{{0}, {26}}, false,
+                        "Current is Out of the board"),
+                bChessParameterized(
+                        new Position(0, 0),
+                        new Position(0, -1),
+                        new int[][]{{0}, {26}}, false,
+                        "Current is Out of the board"),
+                bChessParameterized(
+                        new Position(3, 0),
+                        new Position(1, 0),
+                        new int[][]{{0}, {26}, {0}, {0}}, true,
+                        "Move 2 positions forward given its the first time"),
+                bChessParameterized(
+                        new Position(4, 0),
                         new Position(6, 0),
-                        new int[][]{{0}, {0}, {0}, {0}, {0}, {0}, {16}, {0}}, true));
+                        new int[][]{{0}, {0}, {0}, {0}, {0}, {0}, {16}, {0}}, true,
+                        "Move 2 positions forward given its the first time"));
     }
 
     public ChessPiecesPawnParameterizedTest(ChessParameterized paramTest) {
@@ -107,11 +128,12 @@ public class ChessPiecesPawnParameterizedTest {
 
     @Test
     public void shouldValidateIfPawnCanMoveOnTheBoard() {
+        System.out.println(paramTest.testCase);
         assertEquals(PAWN.getValidatePosition()
                 .test(paramTest.goTo, paramTest.current, paramTest.board), paramTest.assertion);
     }
 
-    public static class ChessParameterized {
+    static class ChessParameterized {
         private Position goTo;
 
         private Position current;
@@ -120,15 +142,20 @@ public class ChessPiecesPawnParameterizedTest {
 
         private boolean assertion;
 
-        public static ChessParameterized bChessParameterized(Position goTo, Position current, int[][] board, boolean assertion) {
-            return new ChessParameterized(goTo, current, board, assertion);
+        private String testCase;
+
+        static ChessParameterized bChessParameterized(Position goTo, Position current, int[][] board,
+                                                      boolean assertion,
+                                                      String testCase) {
+            return new ChessParameterized(goTo, current, board, assertion, testCase);
         }
 
-        public ChessParameterized(Position goTo, Position current, int[][] board, boolean assertion) {
+        ChessParameterized(Position goTo, Position current, int[][] board, boolean assertion, String testCase) {
             this.goTo = goTo;
             this.current = current;
             this.board = board;
             this.assertion = assertion;
+            this.testCase = testCase;
         }
     }
 }
