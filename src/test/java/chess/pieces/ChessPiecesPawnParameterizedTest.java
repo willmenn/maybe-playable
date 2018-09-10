@@ -16,8 +16,6 @@ import static org.junit.Assert.assertEquals;
 @RunWith(Parameterized.class)
 public class ChessPiecesPawnParameterizedTest {
 
-    private ChessParameterized paramTest;
-
     @Parameters
     public static Collection<ChessParameterized> data() {
         return Arrays.asList(
@@ -122,6 +120,8 @@ public class ChessPiecesPawnParameterizedTest {
                         new int[][]{{0}, {0}, {0}, {0}, {0}, {0}, {16}, {0}}, true,
                         "Move 2 positions forward given its the first time"));
     }
+
+    private ChessParameterized paramTest;
 
     public ChessPiecesPawnParameterizedTest(ChessParameterized paramTest) {
         this.paramTest = paramTest;
