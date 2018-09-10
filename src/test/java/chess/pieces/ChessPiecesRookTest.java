@@ -1,6 +1,5 @@
-package chess;
+package chess.pieces;
 
-import chess.pieces.Position;
 import org.junit.Test;
 
 import static chess.pieces.ChessPieces.PAWN;

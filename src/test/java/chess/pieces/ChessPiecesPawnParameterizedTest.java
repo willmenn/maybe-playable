@@ -1,6 +1,6 @@
-package chess;
+package chess.pieces;
 
-import chess.pieces.Position;
+import chess.parametizedUtil.ChessParameterized;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.Parameterized;
@@ -9,8 +9,8 @@ import org.junit.runners.Parameterized.Parameters;
 import java.util.Arrays;
 import java.util.Collection;
 
+import static chess.parametizedUtil.ChessParameterized.bChessParameterized;
 import static chess.pieces.ChessPieces.PAWN;
-import static chess.ChessPiecesPawnParameterizedTest.ChessParameterized.bChessParameterized;
 import static org.junit.Assert.assertEquals;
 
 @RunWith(Parameterized.class)
@@ -132,31 +132,5 @@ public class ChessPiecesPawnParameterizedTest {
         System.out.println(paramTest.testCase);
         assertEquals(PAWN.getValidatePosition()
                 .test(paramTest.goTo, paramTest.current, paramTest.board), paramTest.assertion);
-    }
-
-    static class ChessParameterized {
-        private Position goTo;
-
-        private Position current;
-
-        private int[][] board;
-
-        private boolean assertion;
-
-        private String testCase;
-
-        static ChessParameterized bChessParameterized(Position goTo, Position current, int[][] board,
-                                                      boolean assertion,
-                                                      String testCase) {
-            return new ChessParameterized(goTo, current, board, assertion, testCase);
-        }
-
-        ChessParameterized(Position goTo, Position current, int[][] board, boolean assertion, String testCase) {
-            this.goTo = goTo;
-            this.current = current;
-            this.board = board;
-            this.assertion = assertion;
-            this.testCase = testCase;
-        }
     }
 }
