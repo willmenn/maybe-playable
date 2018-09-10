@@ -1,8 +1,9 @@
 package chess;
 
+import chess.pieces.Position;
 import org.junit.Test;
 
-import static chess.ChessPieces.PAWN;
+import static chess.pieces.ChessPieces.PAWN;
 import static org.junit.Assert.assertFalse;
 
 public class ChessPiecesRookTest {

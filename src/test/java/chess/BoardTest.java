@@ -1,8 +1,9 @@
 package chess;
 
+import chess.pieces.ChessPieces;
 import org.junit.Test;
 
-import static chess.ChessPieces.*;
+import static chess.pieces.ChessPieces.*;
 import static org.junit.Assert.assertEquals;
 
 public class BoardTest {

@@ -1,9 +1,13 @@
 package chess;
 
+import chess.pieces.ChessPieces;
+import chess.pieces.ChessTypeOfPieces;
+import chess.pieces.Position;
+
 import java.util.HashMap;
 import java.util.Map;
 
-import static chess.ChessPieces.*;
+import static chess.pieces.ChessPieces.*;
 
 class Board {
     private static final int WHITE_PAWN_INITIAL_POSITION = 1;
@@ -23,7 +27,8 @@ class Board {
     public boolean movePeiceTo(String piecePos, String moveTo) {
         Position piecePosition = getPosition(piecePos);
         Position moveToPosition = getPosition(moveTo);
-        ChessPieces pieceToBeMoved = ChessPieces.valueOfToObject(this.board[piecePosition.row][piecePosition.column]);
+        ChessPieces pieceToBeMoved = ChessPieces.valueOfToObject(
+                this.board[piecePosition.getRow()][piecePosition.getColumn()]);
 
         return false;
     }
@@ -85,6 +90,4 @@ class Board {
         }
         return rowNames;
     }
-
-
 }

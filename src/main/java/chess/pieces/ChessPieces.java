@@ -1,12 +1,12 @@
-package chess;
+package chess.pieces;
 
 import chess.util.TriPredicate;
 
-import static chess.ChessPiecesFunction.isDiagonalAndNotEmptyPos;
-import static chess.ChessPiecesFunction.isDiagonalMove;
-import static chess.ChessPiecesFunction.isNextPosAhead;
-import static chess.ChessPiecesFunction.isOutSideTheBoard;
-import static chess.ChessPiecesFunction.isPawnAbleToGo2Positions;
+import static chess.pieces.ChessPiecesFunction.isDiagonalAndNotEmptyPos;
+import static chess.pieces.ChessPiecesFunction.isDiagonalMove;
+import static chess.pieces.ChessPiecesFunction.isNextPosAhead;
+import static chess.pieces.ChessPiecesFunction.isOutSideTheBoard;
+import static chess.pieces.ChessPiecesFunction.isPawnAbleToGo2Positions;
 
 public enum ChessPieces {
     KING(1, (position, current, board) -> true),
@@ -70,7 +70,7 @@ public enum ChessPieces {
         };
     }
 
-    static ChessPieces valueOfToObject(int numberRepresentation) {
+    public static ChessPieces valueOfToObject(int numberRepresentation) {
         int number = removeTypeOfPieceFromNumberRepresentation(numberRepresentation);
         for (ChessPieces piece : ChessPieces.values()) {
             if (piece.getNumberRepresentation() == number) {

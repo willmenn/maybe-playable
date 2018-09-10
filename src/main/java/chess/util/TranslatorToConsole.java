@@ -1,6 +1,6 @@
 package chess.util;
 
-import chess.ChessPieces;
+import chess.pieces.ChessPieces;
 
 import static java.lang.System.lineSeparator;
 
@@ -21,7 +21,6 @@ public class TranslatorToConsole {
 
                 line.append(SPACE_ALIGN);
                 line.append(aBoard[j]);
-
             }
             boardForHumans.append(line).append(lineSeparator());
         }
@@ -39,4 +38,3 @@ public class TranslatorToConsole {
         return boardTranslated;
     }
 }
-

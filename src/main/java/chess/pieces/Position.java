@@ -1,4 +1,4 @@
-package chess;
+package chess.pieces;
 
 public class Position {
     Integer row;
@@ -7,5 +7,13 @@ public class Position {
     public Position(Integer row, Integer column) {
         this.row = row;
         this.column = column;
+    }
+
+    public Integer getRow() {
+        return row;
+    }
+
+    public Integer getColumn() {
+        return column;
     }
 }

@@ -1,5 +1,6 @@
 package chess;
 
+import chess.pieces.Position;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.Parameterized;
@@ -8,7 +9,7 @@ import org.junit.runners.Parameterized.Parameters;
 import java.util.Arrays;
 import java.util.Collection;
 
-import static chess.ChessPieces.PAWN;
+import static chess.pieces.ChessPieces.PAWN;
 import static chess.ChessPiecesPawnParameterizedTest.ChessParameterized.bChessParameterized;
 import static org.junit.Assert.assertEquals;
 
