@@ -98,5 +98,4 @@ public class ChessPiecesRookParameterizedTest {
         assertEquals(ROOK.getValidatePosition()
                 .test(paramTest.goTo, paramTest.current, paramTest.board), paramTest.assertion);
     }
-
 }

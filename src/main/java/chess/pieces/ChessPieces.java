@@ -11,7 +11,7 @@ import static chess.pieces.ChessPiecesFunction.isPawnAbleToGo2Positions;
 public enum ChessPieces {
     KING(1, (position, current, board) -> true),
     QUEEN(2, (position, current, board) -> true),
-    ROOK(3, getRookValidatePos()),
+    ROOK(3, rookValidatePos()),
     BISHOP(4, (position, current, board) -> true),
     KNIGHT(5, (position, current, board) -> true),
     PAWN(6, pawnValidatePos());
@@ -60,16 +60,6 @@ public enum ChessPieces {
         };
     }
 
-    private static TriPredicate<Position, Position, int[][]> getRookValidatePos() {
-        return (position, current, board) -> {
-            if (isOutSideTheBoard(current, position) || isDiagonalMove(current, position)) {
-                return false;
-            }
-            //TODO: WIP
-            return true;
-        };
-    }
-
     public static ChessPieces valueOfToObject(int numberRepresentation) {
         int number = removeTypeOfPieceFromNumberRepresentation(numberRepresentation);
         for (ChessPieces piece : ChessPieces.values()) {
@@ -86,5 +76,15 @@ public enum ChessPieces {
         } else {
             return numberRepresentation - 20;
         }
+    }
+
+    private static TriPredicate<Position, Position, int[][]> rookValidatePos() {
+        return (position, current, board) -> {
+            if (isOutSideTheBoard(current, position) || isDiagonalMove(current, position)) {
+                return false;
+            }
+            //TODO: WIP
+            return true;
+        };
     }
 }
