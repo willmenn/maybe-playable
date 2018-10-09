@@ -1,1 +1,1 @@
-# Java Chess implementation.
+# Java Chess implementation
