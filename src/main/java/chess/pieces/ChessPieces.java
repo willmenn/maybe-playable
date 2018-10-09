@@ -5,6 +5,7 @@ import chess.util.TriPredicate;
 import static chess.pieces.ChessPiecesFunction.isDiagonalAndNotEmptyPos;
 import static chess.pieces.ChessPiecesFunction.isDiagonalMove;
 import static chess.pieces.ChessPiecesFunction.isNextPosAhead;
+import static chess.pieces.ChessPiecesFunction.isNextPosAheadEnabledManyPositions;
 import static chess.pieces.ChessPiecesFunction.isOutSideTheBoard;
 import static chess.pieces.ChessPiecesFunction.isPawnAbleToGo2Positions;
 
@@ -83,8 +84,31 @@ public enum ChessPieces {
             if (isOutSideTheBoard(current, position) || isDiagonalMove(current, position)) {
                 return false;
             }
+
+            if (position.getColumn().equals(current.getColumn())) {
+                return isValidGoingBackwardsOrForwards(position, current, board);
+            }
+
             //TODO: WIP
             return true;
         };
+    }
+
+    private static boolean isValidGoingBackwardsOrForwards(Position position, Position current, int[][] board) {
+        ChessTypeOfPieces type = ChessTypeOfPieces.valueOf(board[current.row][current.column]);
+        if (isNextPosAheadEnabledManyPositions(current, position, board, type)) {
+            for (int i = current.getRow() + 1; i < position.getRow(); i++) {
+                if (board[i][current.getColumn()] != 0) {
+                    return false;
+                }
+            }
+        } else {
+            for (int i = current.getRow() - 1; i > position.getRow(); i--) {
+                if (board[i][current.getColumn()] != 0) {
+                    return false;
+                }
+            }
+        }
+        return true;
     }
 }

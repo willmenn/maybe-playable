@@ -24,6 +24,14 @@ class ChessPiecesFunction {
                 && isPosEmpty(board, goTo.row, goTo.column);
     }
 
+    static boolean isNextPosAheadEnabledManyPositions(Position current,
+                                  Position goTo, int[][] board,
+                                  ChessTypeOfPieces type) {
+        return goTo.column.equals(current.column)
+                && isAhead(goTo, current, type)
+                && isPosEmpty(board, goTo.row, goTo.column);
+    }
+
     static boolean isOutSideTheBoard(Position current, Position goTo) {
         return isOutsideTheBoard(current) || isOutsideTheBoard(goTo);
     }
@@ -41,6 +49,11 @@ class ChessPiecesFunction {
                                    ChessTypeOfPieces type) {
         return type.getValidMovement().test(position.row - current.row)
                 && Math.abs(position.row - current.row) == posAvailableToGoForward;
+    }
+
+    private static boolean isAhead(Position position, Position current,
+                                   ChessTypeOfPieces type) {
+        return type.getValidMovement().test(position.row - current.row);
     }
 
     private static boolean isOutsideTheBoard(Position position) {

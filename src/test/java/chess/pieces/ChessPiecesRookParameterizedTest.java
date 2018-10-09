@@ -8,7 +8,6 @@ import org.junit.runners.Parameterized;
 import java.util.Collection;
 
 import static chess.parametizedUtil.ChessParameterized.bChessParameterized;
-import static chess.pieces.ChessPieces.PAWN;
 import static chess.pieces.ChessPieces.ROOK;
 import static java.util.Arrays.asList;
 import static org.junit.Assert.assertEquals;
@@ -83,7 +82,23 @@ public class ChessPiecesRookParameterizedTest {
                         new Position(0, 2),
                         new Position(1, 1),
                         new int[][]{{23}, {0}}, false,
-                        "Rook outside (Back/Right)"));
+                        "Rook outside (Back/Right)"),
+                bChessParameterized(
+                        new Position(2, 0),
+                        new Position(0, 0),
+                        new int[][]{{23}, {11}, {0}}, false,
+                        "Rook cant go forward 2 pos, column is the same."),
+                bChessParameterized(
+                        new Position(2, 0),
+                        new Position(0, 0),
+                        new int[][]{{23}, {0}, {0}}, true,
+                        "Rook can go forward 2 pos, column is the same."),
+                bChessParameterized(
+                        new Position(0, 0),
+                        new Position(2, 0),
+                        new int[][]{{0}, {11}, {23}}, false,
+                        "Rook cant go backward 2 pos, column is the same.")
+        );
     }
 
     private ChessParameterized paramTest;
@@ -95,7 +110,8 @@ public class ChessPiecesRookParameterizedTest {
     @Test
     public void shouldValidateIfPawnCanMoveOnTheBoard() {
         System.out.println(paramTest.testCase);
-        assertEquals(ROOK.getValidatePosition()
-                .test(paramTest.goTo, paramTest.current, paramTest.board), paramTest.assertion);
+        assertEquals(paramTest.assertion,
+                ROOK.getValidatePosition()
+                        .test(paramTest.goTo, paramTest.current, paramTest.board));
     }
 }

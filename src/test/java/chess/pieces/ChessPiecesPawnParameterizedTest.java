@@ -130,7 +130,8 @@ public class ChessPiecesPawnParameterizedTest {
     @Test
     public void shouldValidateIfPawnCanMoveOnTheBoard() {
         System.out.println(paramTest.testCase);
-        assertEquals(PAWN.getValidatePosition()
-                .test(paramTest.goTo, paramTest.current, paramTest.board), paramTest.assertion);
+        assertEquals(paramTest.assertion,
+                PAWN.getValidatePosition()
+                        .test(paramTest.goTo, paramTest.current, paramTest.board));
     }
 }
