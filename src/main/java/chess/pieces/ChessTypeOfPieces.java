@@ -30,7 +30,7 @@ public enum ChessTypeOfPieces {
         return validMovement;
     }
 
-    static ChessTypeOfPieces valueOf(int value) {
+    public static ChessTypeOfPieces valueOf(int value) {
         if (value == 0) {
             throw new EmptyPositionException();
         }
