@@ -25,8 +25,8 @@ class ChessPiecesFunction {
     }
 
     static boolean isNextPosAheadEnabledManyPositions(Position current,
-                                  Position goTo, int[][] board,
-                                  ChessTypeOfPieces type) {
+                                                      Position goTo, int[][] board,
+                                                      ChessTypeOfPieces type) {
         return goTo.column.equals(current.column)
                 && isAhead(goTo, current, type)
                 && isPosEmpty(board, goTo.row, goTo.column);
@@ -43,6 +43,42 @@ class ChessPiecesFunction {
                 && (current.row == 1 || current.row == 6)
                 && isAhead(goTo, current, 2, type)
                 && isPosEmpty(board, goTo.row, goTo.column);
+    }
+
+    static boolean isValidGoingBackwardsOrForwards(Position position, Position current, int[][] board) {
+        ChessTypeOfPieces type = ChessTypeOfPieces.valueOf(board[current.row][current.column]);
+        if (isNextPosAheadEnabledManyPositions(current, position, board, type)) {
+            for (int i = current.getRow() + 1; i < position.getRow(); i++) {
+                if (board[i][current.getColumn()] != 0) {
+                    return false;
+                }
+            }
+        } else {
+            for (int i = current.getRow() - 1; i > position.getRow(); i--) {
+                if (board[i][current.getColumn()] != 0) {
+                    return false;
+                }
+            }
+        }
+        return true;
+    }
+
+    static boolean isValidGoingRightOrLeft(Position position, Position current, int[][] board) {
+        if (position.getColumn() - current.getColumn() > 0) {
+            for (int i = current.getColumn() + 1; i < position.getColumn(); i++) {
+                if (board[current.getRow()][i] != 0) {
+                    return false;
+                }
+            }
+        } else {
+            for (int i = current.getColumn() - 1; i > position.getColumn(); i--) {
+                if (board[current.getRow()][i] != 0) {
+                    return false;
+                }
+            }
+        }
+
+        return true;
     }
 
     private static boolean isAhead(Position position, Position current, int posAvailableToGoForward,

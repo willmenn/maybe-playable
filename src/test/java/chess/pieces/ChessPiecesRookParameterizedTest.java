@@ -97,7 +97,27 @@ public class ChessPiecesRookParameterizedTest {
                         new Position(0, 0),
                         new Position(2, 0),
                         new int[][]{{0}, {11}, {23}}, false,
-                        "Rook cant go backward 2 pos, column is the same.")
+                        "Rook cant go backward 2 pos, column is the same."),
+                bChessParameterized(
+                        new Position(0, 2),
+                        new Position(0, 0),
+                        new int[][]{{23, 0, 0}}, true,
+                        "Rook can go right 2 pos, column is the same."),
+                bChessParameterized(
+                        new Position(0, 0),
+                        new Position(0, 2),
+                        new int[][]{{0, 0, 23}}, true,
+                        "Rook can go left 2 pos, column is the same."),
+                bChessParameterized(
+                        new Position(0, 2),
+                        new Position(0, 0),
+                        new int[][]{{23, 10, 0}}, false,
+                        "Rook cant go right 2 pos, column is the same."),
+                bChessParameterized(
+                        new Position(0, 0),
+                        new Position(0, 2),
+                        new int[][]{{0, 10, 23}}, false,
+                        "Rook cant go left 2 pos, column is the same.")
         );
     }
 
