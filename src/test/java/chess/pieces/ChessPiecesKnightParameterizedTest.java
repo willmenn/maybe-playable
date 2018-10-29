@@ -2,15 +2,13 @@ package chess.pieces;
 
 import chess.parametizedUtil.ChessParameterized;
 import org.junit.Test;
-import org.junit.runner.RunWith;
+import org.junit.runner.*;
 import org.junit.runners.Parameterized;
 
-import java.util.Arrays;
-import java.util.Collection;
+import java.util.*;
 
 import static chess.parametizedUtil.ChessParameterized.bChessParameterized;
 import static chess.pieces.ChessPieces.KNIGHT;
-import static chess.pieces.ChessPieces.PAWN;
 import static org.junit.Assert.assertEquals;
 
 @RunWith(Parameterized.class)
