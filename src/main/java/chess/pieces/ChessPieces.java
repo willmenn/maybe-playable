@@ -3,13 +3,14 @@ package chess.pieces;
 import chess.util.TriPredicate;
 
 import static chess.pieces.ChessPiecesFunction.*;
+import static java.lang.Math.abs;
 
 public enum ChessPieces {
     KING(1, (position, current, board) -> true),
     QUEEN(2, (position, current, board) -> true),
     ROOK(3, rookValidatePos()),
     BISHOP(4, (position, current, board) -> true),
-    KNIGHT(5, (position, current, board) -> true),
+    KNIGHT(5, knightValidatePos()),
     PAWN(6, pawnValidatePos());
 
     private int numberRepresentation;
@@ -37,6 +38,27 @@ public enum ChessPieces {
             }
         }
         return "EMPTY";
+    }
+
+    private static TriPredicate<Position, Position, int[][]> knightValidatePos() {
+        return (position, current, board) -> {
+            if (isOutSideTheBoard(current, position)) {
+                return false;
+            }
+
+            if (validateKnightPos(position, current, 2, 1)) {
+                return true;
+            } else if (validateKnightPos(position, current, 1, 2)) {
+                return true;
+            }
+
+            return false;
+        };
+    }
+
+    private static boolean validateKnightPos(Position position, Position current, int row, int column) {
+        return abs(current.getRow() - position.getRow()) == row
+                && abs(current.getColumn() - position.getColumn()) == column;
     }
 
     private static TriPredicate<Position, Position, int[][]> pawnValidatePos() {
