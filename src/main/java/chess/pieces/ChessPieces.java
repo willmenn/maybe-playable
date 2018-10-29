@@ -2,14 +2,7 @@ package chess.pieces;
 
 import chess.util.TriPredicate;
 
-import static chess.pieces.ChessPiecesFunction.isDiagonalAndNotEmptyPos;
-import static chess.pieces.ChessPiecesFunction.isDiagonalMove;
-import static chess.pieces.ChessPiecesFunction.isNextPosAhead;
-import static chess.pieces.ChessPiecesFunction.isNextPosAheadEnabledManyPositions;
-import static chess.pieces.ChessPiecesFunction.isOutSideTheBoard;
-import static chess.pieces.ChessPiecesFunction.isPawnAbleToGo2Positions;
-import static chess.pieces.ChessPiecesFunction.isValidGoingBackwardsOrForwards;
-import static chess.pieces.ChessPiecesFunction.isValidGoingRightOrLeft;
+import static chess.pieces.ChessPiecesFunction.*;
 
 public enum ChessPieces {
     KING(1, (position, current, board) -> true),

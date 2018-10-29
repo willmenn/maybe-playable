@@ -1,17 +1,11 @@
 package chess;
 
-import chess.pieces.ChessPieces;
-import chess.pieces.ChessTypeOfPieces;
-import chess.pieces.Position;
+import chess.pieces.*;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 import static chess.pieces.ChessPieces.*;
-import static chess.pieces.ChessTypeOfPieces.BLACK;
-import static chess.pieces.ChessTypeOfPieces.WHITE;
+import static chess.pieces.ChessTypeOfPieces.*;
 
 class Board {
     private static final int WHITE_PAWN_INITIAL_POSITION = 1;
