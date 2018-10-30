@@ -9,7 +9,7 @@ public enum ChessPieces {
     KING(1, (position, current, board) -> true),
     QUEEN(2, (position, current, board) -> true),
     ROOK(3, rookValidatePos()),
-    BISHOP(4, (position, current, board) -> true),
+    BISHOP(4, bishopValidatePos()),
     KNIGHT(5, knightValidatePos()),
     PAWN(6, pawnValidatePos());
 
@@ -40,6 +40,44 @@ public enum ChessPieces {
         return "EMPTY";
     }
 
+    public static ChessPieces valueOfToObject(int numberRepresentation) {
+        int number = removeTypeOfPieceFromNumberRepresentation(numberRepresentation);
+        for (ChessPieces piece : ChessPieces.values()) {
+            if (piece.getNumberRepresentation() == number) {
+                return piece;
+            }
+        }
+        throw new RuntimeException();
+    }
+
+    private static TriPredicate<Position, Position, int[][]> bishopValidatePos() {
+        return (position, current, board) -> {
+            if (isOutSideTheBoard(current, position) || !isDiagonalMove(current, position)) {
+                return false;
+            }
+
+            if (position.row - current.row >= 0) {
+                return validateDiagonalMoveGoingPositveRows(position, current, board);
+            } else {
+                return validateDiagonalMoveGoingNegativeRows(position, current, board);
+            }
+        };
+    }
+
+    private static int addColumnGivenRightOrLeft(Position position, Position current, int col) {
+        if (position.getColumn() - current.getColumn() > 0) {
+            col++;
+        } else { // going left
+            col--;
+        }
+        return col;
+    }
+
+    private static int getColumnStartPosition(Position position, Position current) {
+        return position.getColumn() - current.getColumn() > 0 ? current.getColumn() + 1
+                : current.getColumn() - 1;
+    }
+
     private static TriPredicate<Position, Position, int[][]> knightValidatePos() {
         return (position, current, board) -> {
             if (isOutSideTheBoard(current, position)) {
@@ -48,17 +86,10 @@ public enum ChessPieces {
 
             if (validateKnightPos(position, current, 2, 1)) {
                 return true;
-            } else if (validateKnightPos(position, current, 1, 2)) {
-                return true;
+            } else {
+                return validateKnightPos(position, current, 1, 2);
             }
-
-            return false;
         };
-    }
-
-    private static boolean validateKnightPos(Position position, Position current, int row, int column) {
-        return abs(current.getRow() - position.getRow()) == row
-                && abs(current.getColumn() - position.getColumn()) == column;
     }
 
     private static TriPredicate<Position, Position, int[][]> pawnValidatePos() {
@@ -78,16 +109,6 @@ public enum ChessPieces {
         };
     }
 
-    public static ChessPieces valueOfToObject(int numberRepresentation) {
-        int number = removeTypeOfPieceFromNumberRepresentation(numberRepresentation);
-        for (ChessPieces piece : ChessPieces.values()) {
-            if (piece.getNumberRepresentation() == number) {
-                return piece;
-            }
-        }
-        throw new RuntimeException();
-    }
-
     private static int removeTypeOfPieceFromNumberRepresentation(int numberRepresentation) {
         if (numberRepresentation - 10 < 10) {
             return numberRepresentation - 10;
@@ -98,7 +119,7 @@ public enum ChessPieces {
 
     private static TriPredicate<Position, Position, int[][]> rookValidatePos() {
         return (position, current, board) -> {
-            if (isOutSideTheBoard(current, position) || isDiagonalMove(current, position)) {
+            if (isOutSideTheBoard(current, position) || isDiagonalForOneMove(current, position)) {
                 return false;
             }
 
@@ -108,5 +129,38 @@ public enum ChessPieces {
                 return isValidGoingRightOrLeft(position, current, board);
             }
         };
+    }
+
+    private static boolean validateDiagonalMoveGoingPositveRows(Position position, Position current, int[][] board) {
+        int col = getColumnStartPosition(position, current);
+        for (int i = current.getRow() + 1; i < Math.abs(current.getRow() - 8); i++) {
+            if (board[i][col] != 0) {
+                return false;
+            }
+            if (col == position.getColumn()) {
+                return true;
+            }
+            col = addColumnGivenRightOrLeft(position, current, col);
+        }
+        return false;
+    }
+
+    private static boolean validateDiagonalMoveGoingNegativeRows(Position position, Position current, int[][] board) {
+        int col = getColumnStartPosition(position, current);
+        for (int i = current.getRow() - 1; i >= position.row; i--) {
+            if (board[i][col] != 0 && !(i == position.getRow() && col == position.getColumn())) {
+                return false;
+            }
+            if (col == position.getColumn()) {
+                return true;
+            }
+            col = addColumnGivenRightOrLeft(position, current, col);
+        }
+        return false;
+    }
+
+    private static boolean validateKnightPos(Position position, Position current, int row, int column) {
+        return abs(current.getRow() - position.getRow()) == row
+                && abs(current.getColumn() - position.getColumn()) == column;
     }
 }

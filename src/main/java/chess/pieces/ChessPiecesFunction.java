@@ -5,15 +5,21 @@ class ChessPiecesFunction {
     static boolean isDiagonalAndNotEmptyPos(Position current, Position goTo,
                                             int[][] board,
                                             ChessTypeOfPieces type) {
-        return isDiagonalMove(current, goTo)
+        return isDiagonalForOneMove(current, goTo)
                 && isAhead(goTo, current, 1, type)
                 && !isPosEmpty(board, goTo.row, goTo.column);
     }
 
-    static boolean isDiagonalMove(Position current, Position position) {
+    static boolean isDiagonalForOneMove(Position current, Position position) {
         return (position.column - current.column == 1
                 || position.column - current.column == -1)
                 && position.row - current.row != 0;
+    }
+
+    static boolean isDiagonalMove(Position current, Position position) {
+        int col = Math.abs(current.column - position.column);
+        int row = Math.abs(current.row - position.row);
+        return col == row;
     }
 
     static boolean isNextPosAhead(Position current,
@@ -21,14 +27,6 @@ class ChessPiecesFunction {
                                   ChessTypeOfPieces type) {
         return goTo.column.equals(current.column)
                 && isAhead(goTo, current, 1, type)
-                && isPosEmpty(board, goTo.row, goTo.column);
-    }
-
-    static boolean isNextPosAheadEnabledManyPositions(Position current,
-                                                      Position goTo, int[][] board,
-                                                      ChessTypeOfPieces type) {
-        return goTo.column.equals(current.column)
-                && isAhead(goTo, current, type)
                 && isPosEmpty(board, goTo.row, goTo.column);
     }
 
@@ -95,6 +93,14 @@ class ChessPiecesFunction {
     private static boolean isOutsideTheBoard(Position position) {
         return position.column > 7 || position.row > 7
                 || position.column < 0 || position.row < 0;
+    }
+
+    private static boolean isNextPosAheadEnabledManyPositions(Position current,
+                                                              Position goTo, int[][] board,
+                                                              ChessTypeOfPieces type) {
+        return goTo.column.equals(current.column)
+                && isAhead(goTo, current, type)
+                && isPosEmpty(board, goTo.row, goTo.column);
     }
 
     private static boolean isPosEmpty(int[][] board, int row, int column) {
