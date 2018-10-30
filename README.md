@@ -18,3 +18,7 @@ OBS: The idea is to put this two func inside the Board class so that the Main cl
 WIP:
 
 - King func
+
+Nice to have:
+
+- [FEN](https://pt.wikipedia.org/wiki/Nota%C3%A7%C3%A3o_Forsyth-Edwards)
