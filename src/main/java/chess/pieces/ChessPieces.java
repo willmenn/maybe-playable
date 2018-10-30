@@ -6,7 +6,7 @@ import static chess.pieces.ChessPiecesFunction.*;
 import static java.lang.Math.abs;
 
 public enum ChessPieces {
-    KING(1, (position, current, board) -> true),
+    KING(1, kingValidatePos()),
     QUEEN(2, queenValidatePos()),
     ROOK(3, rookValidatePos()),
     BISHOP(4, bishopValidatePos()),
@@ -72,6 +72,20 @@ public enum ChessPieces {
     private static int getColumnStartPosition(Position position, Position current) {
         return position.getColumn() - current.getColumn() > 0 ? current.getColumn() + 1
                 : current.getColumn() - 1;
+    }
+
+    private static TriPredicate<Position, Position, int[][]> kingValidatePos() {
+        return (position, current, board) -> {
+            if (isOutSideTheBoard(current, position)) {
+                return false;
+            }
+
+            return validatePieceOnlyMovesOneBlockForward(position, current);
+        };
+    }
+
+    private static boolean validatePieceOnlyMovesOneBlockForward(Position position, Position current) {
+        return Math.abs(current.row - position.row) <= 1 && Math.abs(current.column - position.column) <= 1;
     }
 
     private static TriPredicate<Position, Position, int[][]> knightValidatePos() {
