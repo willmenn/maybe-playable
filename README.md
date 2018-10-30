@@ -15,10 +15,6 @@ To be implemented:
 
 OBS: The idea is to put this two func inside the Board class so that the Main class will orchestrate the game.
 
-WIP:
-
-- King func
-
 Nice to have:
 
 - [FEN](https://pt.wikipedia.org/wiki/Nota%C3%A7%C3%A3o_Forsyth-Edwards), but needs Castling and en passant implemented.
