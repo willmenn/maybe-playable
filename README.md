@@ -21,4 +21,4 @@ WIP:
 
 Nice to have:
 
-- [FEN](https://pt.wikipedia.org/wiki/Nota%C3%A7%C3%A3o_Forsyth-Edwards)
+- [FEN](https://pt.wikipedia.org/wiki/Nota%C3%A7%C3%A3o_Forsyth-Edwards), but needs Castling and en passant implemented.
