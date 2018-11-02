@@ -48,6 +48,7 @@ class Board {
                 this.board[piecePosition.getRow()][piecePosition.getColumn()]);
     }
 
+    //TODO: Missing the unit tests
     public CheckMateStatus isCheckMate(ChessTypeOfPieces type) {
         int kingNumber = type.getNumberRepresentation() + KING.getNumberRepresentation();
         Position kingPosition = walkOnBoard(findPiecePos(kingNumber));

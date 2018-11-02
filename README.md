@@ -8,7 +8,6 @@ ________
 
 To be implemented:
 
-- Check-Mate Func
 - When the Pawn reaches to the end of the board the player can change the piece to any other.
 - Castling Func
 - Pawn en Passant
