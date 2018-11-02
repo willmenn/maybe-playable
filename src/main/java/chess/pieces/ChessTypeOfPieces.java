@@ -43,4 +43,12 @@ public enum ChessTypeOfPieces {
 
         throw new IllegalArgumentException("Value: " + value);
     }
+
+    public static ChessTypeOfPieces invertType(ChessTypeOfPieces type) {
+        if (type.equals(BLACK)) {
+            return WHITE;
+        } else {
+            return BLACK;
+        }
+    }
 }
