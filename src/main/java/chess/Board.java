@@ -43,12 +43,7 @@ class Board {
         return false;
     }
 
-    private ChessPieces evaluatePositionToPiece(Position piecePosition) {
-        return ChessPieces.valueOfToObject(
-                this.board[piecePosition.getRow()][piecePosition.getColumn()]);
-    }
-
-    //TODO: Missing the unit tests
+    //TODO: Missing the unit tests and enable a piece to be in the next block.
     public CheckMateStatus isCheckMate(ChessTypeOfPieces type) {
         int kingNumber = type.getNumberRepresentation() + KING.getNumberRepresentation();
         Position kingPosition = walkOnBoard(findPiecePos(kingNumber));
@@ -62,7 +57,6 @@ class Board {
 
         return CheckMateStatus.isCheckMate(sumOfPiecesThatAreCheckTheKing, kingPossiblePos.size());
     }
-
     private void addFirstLinePieces(int startPosition, int[][] board, int type) {
         board[startPosition][0] = type + ROOK.getNumberRepresentation();
         board[startPosition][1] = type + KNIGHT.getNumberRepresentation();
@@ -72,6 +66,11 @@ class Board {
         board[startPosition][5] = type + BISHOP.getNumberRepresentation();
         board[startPosition][6] = type + KNIGHT.getNumberRepresentation();
         board[startPosition][7] = type + ROOK.getNumberRepresentation();
+    }
+
+    private ChessPieces evaluatePositionToPiece(Position piecePosition) {
+        return ChessPieces.valueOfToObject(
+                this.board[piecePosition.getRow()][piecePosition.getColumn()]);
     }
 
     private int[][] initBoard(int[][] board) {

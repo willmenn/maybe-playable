@@ -143,6 +143,60 @@ public class BoardTest {
         assertEquals(CHECK, checkMate);
     }
 
+    @Test
+    public void shouldReturnCheckWith2Pieces() throws NoSuchFieldException, IllegalAccessException {
+        Board board = new Board();
+        int[][] boardMatrix = new int[8][8];
+        boardMatrix[2][2] = WHITE.getNumberRepresentation() + KING.getNumberRepresentation();
+        boardMatrix[0][2] = BLACK.getNumberRepresentation() + ROOK.getNumberRepresentation();
+        boardMatrix[4][2] = BLACK.getNumberRepresentation() + ROOK.getNumberRepresentation();
+        setBoardField(board, boardMatrix);
+        CheckMateStatus checkMate = board.isCheckMate(WHITE);
+        assertEquals(CHECK, checkMate);
+    }
+
+    @Test
+    public void shouldReturnCheckWith3Pieces() throws NoSuchFieldException, IllegalAccessException {
+        Board board = new Board();
+        int[][] boardMatrix = new int[8][8];
+        boardMatrix[2][2] = WHITE.getNumberRepresentation() + KING.getNumberRepresentation();
+        boardMatrix[0][2] = BLACK.getNumberRepresentation() + ROOK.getNumberRepresentation();
+        boardMatrix[4][2] = BLACK.getNumberRepresentation() + ROOK.getNumberRepresentation();
+        boardMatrix[0][0] = BLACK.getNumberRepresentation() + BISHOP.getNumberRepresentation();
+        setBoardField(board, boardMatrix);
+        CheckMateStatus checkMate = board.isCheckMate(WHITE);
+        assertEquals(CHECK, checkMate);
+    }
+
+    @Test
+    public void shouldReturnCheckWith4Pieces() throws NoSuchFieldException, IllegalAccessException {
+        Board board = new Board();
+        int[][] boardMatrix = new int[8][8];
+        boardMatrix[2][2] = WHITE.getNumberRepresentation() + KING.getNumberRepresentation();
+        boardMatrix[0][2] = BLACK.getNumberRepresentation() + ROOK.getNumberRepresentation();
+        boardMatrix[4][2] = BLACK.getNumberRepresentation() + ROOK.getNumberRepresentation();
+        boardMatrix[0][0] = BLACK.getNumberRepresentation() + BISHOP.getNumberRepresentation();
+        boardMatrix[5][5] = BLACK.getNumberRepresentation() + BISHOP.getNumberRepresentation();
+        setBoardField(board, boardMatrix);
+        CheckMateStatus checkMate = board.isCheckMate(WHITE);
+        assertEquals(CHECK, checkMate);
+    }
+
+    @Test
+    public void shouldReturnCheckMateWith5Pieces() throws NoSuchFieldException, IllegalAccessException {
+        Board board = new Board();
+        int[][] boardMatrix = new int[8][8];
+        boardMatrix[2][2] = WHITE.getNumberRepresentation() + KING.getNumberRepresentation();
+        boardMatrix[0][2] = BLACK.getNumberRepresentation() + ROOK.getNumberRepresentation();
+        boardMatrix[4][2] = BLACK.getNumberRepresentation() + ROOK.getNumberRepresentation();
+        boardMatrix[0][0] = BLACK.getNumberRepresentation() + BISHOP.getNumberRepresentation();
+        boardMatrix[5][5] = BLACK.getNumberRepresentation() + BISHOP.getNumberRepresentation();
+        boardMatrix[4][2] = BLACK.getNumberRepresentation() + QUEEN.getNumberRepresentation();
+        setBoardField(board, boardMatrix);
+        CheckMateStatus checkMate = board.isCheckMate(WHITE);
+        assertEquals(CHECK, checkMate);
+    }
+
     private int getSumOfPieces(int[][] board, ChessPieces piece) {
         int sumOfRooks = 0;
         for (int[] aBoard : board) {
