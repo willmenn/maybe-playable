@@ -54,70 +54,13 @@ class Board {
         Position kingPosition = walkOnBoard(findPiecePos(kingNumber));
         List<Position> kingPossiblePos = getAllPossiblePositionForAKing(kingPosition);
 
-        List<Position> allPiecesPos = getAllOponentPiecesPositions(type);
+        List<Position> allPiecesPos = getAllOpponentPiecesPositions(type).stream()
+                .filter(Objects::nonNull)
+                .collect(Collectors.toList());
 
         int sumOfPiecesThatAreCheckTheKing = getSumOfAllPiecesThatAreCheckTheKing(kingPossiblePos, allPiecesPos);
 
         return CheckMateStatus.isCheckMate(sumOfPiecesThatAreCheckTheKing, kingPossiblePos.size());
-    }
-
-    private int getSumOfAllPiecesThatAreCheckTheKing(List<Position> kingPossiblePositions, List<Position> allPiecesPositions) {
-        return allPiecesPositions.stream().mapToInt(piece ->
-                kingPossiblePositions.stream().mapToInt(pos -> evaluatePositionToPiece(piece)
-                        .getValidatePosition().test(piece, pos, this.board) ? 1 : 0).sum()).sum();
-    }
-
-    private List<Position> getAllPossiblePositionForAKing(Position king) {
-        List<Position> possiblePositions = new ArrayList<>();
-        validatePositionAndAdd(possiblePositions, king, new Position(king.getRow() - 1, king.getColumn() - 1));
-        validatePositionAndAdd(possiblePositions, king, new Position(king.getRow() - 1, king.getColumn()));
-        validatePositionAndAdd(possiblePositions, king, new Position(king.getRow() - 1, king.getColumn() + 1));
-        validatePositionAndAdd(possiblePositions, king, new Position(king.getRow() + 1, king.getColumn() - 1));
-        validatePositionAndAdd(possiblePositions, king, new Position(king.getRow() + 1, king.getColumn()));
-        validatePositionAndAdd(possiblePositions, king, new Position(king.getRow(), king.getColumn() - 1));
-        validatePositionAndAdd(possiblePositions, king, new Position(king.getRow(), king.getColumn() + 1));
-
-        return possiblePositions;
-    }
-
-    private void validatePositionAndAdd(List<Position> possiblePositions, Position king, Position future) {
-        if (isInsideTheBoard(future.getRow()) && isInsideTheBoard(future.getColumn())) {
-            possiblePositions.add(future);
-        }
-    }
-
-    private boolean isInsideTheBoard(Integer future) {
-        return future < 0 || future > 7;
-    }
-
-    private List<Position> getAllOponentPiecesPositions(ChessTypeOfPieces type) {
-        ChessTypeOfPieces otherType = ChessTypeOfPieces.invertType(type);
-        return Arrays.asList(ChessPieces.values()).stream()
-                .map(piece ->
-                        walkOnBoard(findPiecePos(otherType.getNumberRepresentation()
-                                + piece.getNumberRepresentation())))
-                .collect(Collectors.toList());
-    }
-
-    private BiFunction<Integer, Integer, Position> findPiecePos(int pieceNumber) {
-        return (i, j) -> {
-            if (this.board[i][j] == pieceNumber) {
-                return new Position(i, j);
-            } else {
-                return null;
-            }
-        };
-    }
-
-
-    private Position walkOnBoard(BiFunction<Integer, Integer, Position> func) {
-        Position pos = null;
-        for (int i = 0; i < 8; i++) {
-            for (int j = 0; j < 8; j++) {
-                pos = func.apply(i, j);
-            }
-        }
-        return pos;
     }
 
     private void addFirstLinePieces(int startPosition, int[][] board, int type) {
@@ -129,32 +72,6 @@ class Board {
         board[startPosition][5] = type + BISHOP.getNumberRepresentation();
         board[startPosition][6] = type + KNIGHT.getNumberRepresentation();
         board[startPosition][7] = type + ROOK.getNumberRepresentation();
-    }
-
-    private void fillWithPawns(int startPosition, int[][] board, int type) {
-        int pawnLine = startPosition == 0 ? WHITE_PAWN_INITIAL_POSITION
-                : BLACK_PAWN_INITIAL_POSITION;
-
-        for (int i = 0; i < board[0].length; i++) {
-            board[pawnLine][i] = type + PAWN.getNumberRepresentation();
-        }
-    }
-
-    private int getQueenKingPos(int startPosition, ChessPieces king, ChessPieces queen) {
-        int queenKingPos;
-        if (startPosition == 0) {
-            queenKingPos = king.getNumberRepresentation();
-        } else {
-            queenKingPos = queen.getNumberRepresentation();
-        }
-        return queenKingPos;
-    }
-
-    private Position getPosition(String pos) {
-        char[] chars = pos.toCharArray();
-        Integer row = rowNames.get(chars[0]);
-        Integer column = Integer.parseInt(String.valueOf(chars[1]));
-        return new Position(row, column);
     }
 
     private int[][] initBoard(int[][] board) {
@@ -178,6 +95,77 @@ class Board {
         return rowNames;
     }
 
+    private boolean isInsideTheBoard(Integer future) {
+        return future >= 0 && future <= 7;
+    }
+
+    private void fillWithPawns(int startPosition, int[][] board, int type) {
+        int pawnLine = startPosition == 0 ? WHITE_PAWN_INITIAL_POSITION
+                : BLACK_PAWN_INITIAL_POSITION;
+
+        for (int i = 0; i < board[0].length; i++) {
+            board[pawnLine][i] = type + PAWN.getNumberRepresentation();
+        }
+    }
+
+    private BiFunction<Integer, Integer, Position> findPiecePos(int pieceNumber) {
+        return (i, j) -> {
+            if (this.board[i][j] == pieceNumber) {
+                return new Position(i, j);
+            } else {
+                return null;
+            }
+        };
+    }
+
+    private List<Position> getAllOpponentPiecesPositions(ChessTypeOfPieces type) {
+        ChessTypeOfPieces otherType = ChessTypeOfPieces.invertType(type);
+        return Arrays.asList(ChessPieces.values()).stream()
+                .map(piece ->
+                        walkOnBoard(findPiecePos(otherType.getNumberRepresentation()
+                                + piece.getNumberRepresentation())))
+                .collect(Collectors.toList());
+    }
+
+    private List<Position> getAllPossiblePositionForAKing(Position king) {
+        List<Position> possiblePositions = new ArrayList<>();
+        validatePositionAndAdd(possiblePositions, new Position(king.getRow() - 1, king.getColumn() - 1));
+        validatePositionAndAdd(possiblePositions, new Position(king.getRow() - 1, king.getColumn()));
+        validatePositionAndAdd(possiblePositions, new Position(king.getRow() - 1, king.getColumn() + 1));
+        validatePositionAndAdd(possiblePositions, new Position(king.getRow() + 1, king.getColumn() - 1));
+        validatePositionAndAdd(possiblePositions, new Position(king.getRow() + 1, king.getColumn()));
+        validatePositionAndAdd(possiblePositions, new Position(king.getRow() + 1, king.getColumn() + 1));
+        validatePositionAndAdd(possiblePositions, new Position(king.getRow(), king.getColumn() - 1));
+        validatePositionAndAdd(possiblePositions, new Position(king.getRow(), king.getColumn() + 1));
+
+        return possiblePositions;
+    }
+
+    private Position getPosition(String pos) {
+        char[] chars = pos.toCharArray();
+        Integer row = rowNames.get(chars[0]);
+        Integer column = Integer.parseInt(String.valueOf(chars[1]));
+        return new Position(row, column);
+    }
+
+    private int getQueenKingPos(int startPosition, ChessPieces king, ChessPieces queen) {
+        int queenKingPos;
+        if (startPosition == 0) {
+            queenKingPos = king.getNumberRepresentation();
+        } else {
+            queenKingPos = queen.getNumberRepresentation();
+        }
+        return queenKingPos;
+    }
+
+    private int getSumOfAllPiecesThatAreCheckTheKing(List<Position> kingPossiblePositions,
+                                                     List<Position> allPiecesPositions) {
+        return allPiecesPositions.stream().mapToInt(piece ->
+                kingPossiblePositions.stream().mapToInt(pos -> evaluatePositionToPiece(piece)
+                        .getValidatePosition().test(pos,
+                                piece, this.board) ? 1 : 0).sum()).sum();
+    }
+
     private void ifPieceIsPresentAddOnRemovedArray(Position moveToPosition, ChessPieces pieceToBeMoved) {
         ChessTypeOfPieces type = ChessTypeOfPieces.valueOf(pieceToBeMoved.getNumberRepresentation());
         int elementToBeRemoved = board[moveToPosition.getRow()][moveToPosition.getColumn()];
@@ -192,5 +180,24 @@ class Board {
     private void movePiece(Position piecePosition, Position moveToPosition, ChessPieces pieceToBeMoved) {
         board[piecePosition.getRow()][piecePosition.getColumn()] = EMPTY_BLOCK;
         board[moveToPosition.getRow()][moveToPosition.getColumn()] = pieceToBeMoved.getNumberRepresentation();
+    }
+
+    private void validatePositionAndAdd(List<Position> possiblePositions, Position future) {
+        if (isInsideTheBoard(future.getRow()) && isInsideTheBoard(future.getColumn())) {
+            possiblePositions.add(future);
+        }
+    }
+
+    private Position walkOnBoard(BiFunction<Integer, Integer, Position> func) {
+        Position pos = null;
+        for (int i = 0; i < this.board.length; i++) {
+            for (int j = 0; j < this.board[0].length; j++) {
+                Position futurePos = func.apply(i, j);
+                if (futurePos != null) {
+                    pos = futurePos;
+                }
+            }
+        }
+        return pos;
     }
 }

@@ -3,7 +3,11 @@ package chess;
 import chess.pieces.ChessPieces;
 import org.junit.Test;
 
+import static chess.BoardUnauthorizedOps.setBoardField;
+import static chess.CheckMateStatus.CHECK;
 import static chess.pieces.ChessPieces.*;
+import static chess.pieces.ChessTypeOfPieces.BLACK;
+import static chess.pieces.ChessTypeOfPieces.WHITE;
 import static org.junit.Assert.assertEquals;
 
 public class BoardTest {
@@ -122,10 +126,21 @@ public class BoardTest {
     public void thePawnShouldAlwaysBeginAheadOfOtherPieces() {
         Board boardGame = new Board();
         int[][] board = boardGame.getBoard();
-        for(int i=0; i < board[1].length; i++){
+        for (int i = 0; i < board[1].length; i++) {
             assertEquals(PAWN.name(), valueOf(board[1][i]));
             assertEquals(PAWN.name(), valueOf(board[6][i]));
         }
+    }
+
+    @Test
+    public void shouldReturnCheck() throws NoSuchFieldException, IllegalAccessException {
+        Board board = new Board();
+        int[][] boardMatrix = new int[8][8];
+        boardMatrix[0][2] = WHITE.getNumberRepresentation() + KING.getNumberRepresentation();
+        boardMatrix[0][0] = BLACK.getNumberRepresentation() + ROOK.getNumberRepresentation();
+        setBoardField(board, boardMatrix);
+        CheckMateStatus checkMate = board.isCheckMate(WHITE);
+        assertEquals(CHECK, checkMate);
     }
 
     private int getSumOfPieces(int[][] board, ChessPieces piece) {

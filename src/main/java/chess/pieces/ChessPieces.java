@@ -155,8 +155,10 @@ public enum ChessPieces {
     private static boolean validate90DegreesMovement(Position position, Position current, int[][] board) {
         if (position.getColumn().equals(current.getColumn())) {
             return isValidGoingBackwardsOrForwards(position, current, board);
-        } else {
+        } else if (position.getRow().equals(current.getRow())) {
             return isValidGoingRightOrLeft(position, current, board);
+        } else {
+            return false;
         }
     }
 
