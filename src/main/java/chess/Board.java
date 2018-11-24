@@ -17,6 +17,8 @@ class Board {
     private Map<Character, Integer> rowNames;
     private List<Integer> whitePiecesRemoved;
     private List<Integer> blackPiecesRemoved;
+    private List<Position> pawnEnPassantEnable;
+
 
     Board() {
         this.board = initBoard(new int[8][8]);
@@ -57,6 +59,7 @@ class Board {
 
         return CheckMateStatus.isCheckMate(sumOfPiecesThatAreCheckTheKing, kingPossiblePos.size());
     }
+
     private void addFirstLinePieces(int startPosition, int[][] board, int type) {
         board[startPosition][0] = type + ROOK.getNumberRepresentation();
         board[startPosition][1] = type + KNIGHT.getNumberRepresentation();
