@@ -2,7 +2,13 @@ package chess.pieces;
 
 import chess.util.TriPredicate;
 
-import static chess.pieces.ChessPiecesFunction.*;
+import static chess.pieces.GenericMoveValidation.*;
+import static chess.pieces.DiagonalMoveValidation.isDiagonalAndNotEmptyPos;
+import static chess.pieces.DiagonalMoveValidation.isDiagonalForOneMove;
+import static chess.pieces.DiagonalMoveValidation.isDiagonalMove;
+import static chess.pieces._90DegreeMoveValidation.isNextPosAhead;
+import static chess.pieces._90DegreeMoveValidation.isValidGoingBackwardsOrForwards;
+import static chess.pieces._90DegreeMoveValidation.isValidGoingRightOrLeft;
 import static java.lang.Math.abs;
 
 public enum ChessPieces {
