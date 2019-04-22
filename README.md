@@ -1,4 +1,4 @@
-[![Build Status](https://travis-ci.org/willmenn/maybe-playable.svg?branch=master)](https://travis-ci.org/willmenn/maybe-playable)
+[![CircleCI](https://circleci.com/gh/willmenn/maybe-playable.svg?style=svg)](https://circleci.com/gh/willmenn/maybe-playable)
 # Java Chess implementation
 
 
