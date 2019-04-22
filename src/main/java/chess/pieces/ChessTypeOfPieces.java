@@ -5,17 +5,20 @@ import chess.exception.EmptyPositionException;
 import java.util.function.Predicate;
 
 public enum ChessTypeOfPieces {
-    WHITE(20, 0, (value) -> value > 0),
-    BLACK(10, 7, (value) -> value < 0);
+    WHITE(20, 0, (value) -> value > 0, 6),
+    BLACK(10, 7, (value) -> value < 0, 1);
 
     private int numberRepresentation;
     private int startPoint;
     private Predicate<Integer> validMovement;
+    private int pawnFirstRowPosition;
 
-    ChessTypeOfPieces(int numberRepresentation, int startPoint, Predicate<Integer> validMovement) {
+    ChessTypeOfPieces(int numberRepresentation, int startPoint, Predicate<Integer> validMovement,
+                      int pawnFirstRowPosition) {
         this.numberRepresentation = numberRepresentation;
         this.startPoint = startPoint;
         this.validMovement = validMovement;
+        this.pawnFirstRowPosition = pawnFirstRowPosition;
     }
 
     public int getNumberRepresentation() {
@@ -24,6 +27,10 @@ public enum ChessTypeOfPieces {
 
     public int getStartPoint() {
         return startPoint;
+    }
+
+    public int getPawnFirstRowPosition() {
+        return pawnFirstRowPosition;
     }
 
     public Predicate<Integer> getValidMovement() {
