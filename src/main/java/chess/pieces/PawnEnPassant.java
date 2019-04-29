@@ -3,6 +3,7 @@ package chess.pieces;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.Optional;
 
 import static chess.pieces.ChessPieces.PAWN;
 import static chess.pieces.ChessTypeOfPieces.BLACK;
@@ -11,15 +12,31 @@ import static chess.pieces.GenericMoveValidation.isPawnAbleToGo2Positions;
 
 public class PawnEnPassant {
 
-    public List<Position> isPawn2MoveAhead(Position from, Position goTo,
-                                           int[][] board, ChessTypeOfPieces type, List<Position> paws) {
-        if (isPawnAbleToGo2Positions(from, goTo, board, type)) {
-            List<Position> pawsEnabledEnPassant = new ArrayList<>();
-            Collections.copy(paws, pawsEnabledEnPassant);
-            pawsEnabledEnPassant.add(goTo);
-            return pawsEnabledEnPassant;
+    /**
+     *This function has the intent to validate if the next capture
+     * will be an en passant capture returning a true if it is.
+     * Maybe Creating another function to execute the En Passant Capture.
+     */
+    public boolean isPawnAbleToCaptureEnPassant(Position from, Position goTo,
+                                                int[][] board, ChessTypeOfPieces type,
+                                                List<Position> pawsEnPassant) {
+        int possiblePawnToBeCaptured = board[goTo.getRow() - 1][goTo.getColumn()];
+        int possiblePawn = board[from.getRow()][from.getColumn()];
+
+        if (ChessPieces.valueOf(possiblePawnToBeCaptured).equals(PAWN.name())
+                && ChessPieces.valueOf(possiblePawn).equals(PAWN.name())
+                && !ChessTypeOfPieces.valueOf(possiblePawnToBeCaptured).equals(type)) {
+
+            Position posPawnToBeCaptured = new Position(goTo.getRow() - 1, goTo.getColumn());
+
+            Optional<Position> isAvailableToBeCaptured = pawsEnPassant.stream()
+                    .filter(p -> p.equals(posPawnToBeCaptured))
+                    .findFirst();
+
+            return isAvailableToBeCaptured.isPresent();
         }
-        return paws;
+
+        return false;
     }
 
     /**
@@ -45,9 +62,5 @@ public class PawnEnPassant {
                 && howManyPositionWillMove == 2
                 && ChessPieces.valueOf(pawnPosition).equals(PAWN.name())
                 && type.getPawnFirstRowPosition() == from.getRow();
-    }
-
-    public Position getPawnThatMustBeRemovedByEnPassant(Position from, Position goTo) {
-        return new Position(from.getRow(), goTo.getColumn());
     }
 }
