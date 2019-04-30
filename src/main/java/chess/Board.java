@@ -72,7 +72,7 @@ class Board {
     }
 
     private ChessPieces evaluatePositionToPiece(Position piecePosition) {
-        return ChessPieces.valueOfToObject(
+        return valueOfToObject(
                 this.board[piecePosition.getRow()][piecePosition.getColumn()]);
     }
 
@@ -121,7 +121,7 @@ class Board {
     }
 
     private List<Position> getAllOpponentPiecesPositions(ChessTypeOfPieces type) {
-        ChessTypeOfPieces otherType = ChessTypeOfPieces.invertType(type);
+        ChessTypeOfPieces otherType = invertType(type);
         return Arrays.asList(ChessPieces.values()).stream()
                 .map(piece ->
                         walkOnBoard(findPiecePos(otherType.getNumberRepresentation()

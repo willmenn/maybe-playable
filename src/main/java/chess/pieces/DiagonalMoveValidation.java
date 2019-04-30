@@ -3,7 +3,7 @@ package chess.pieces;
 import static chess.pieces.GenericMoveValidation.isPosEmpty;
 import static chess.pieces._90DegreeMoveValidation.isAhead;
 
-public class DiagonalMoveValidation {
+class DiagonalMoveValidation {
 
     static boolean isDiagonalAndNotEmptyPos(Position current, Position goTo,
                                             int[][] board,

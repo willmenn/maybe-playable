@@ -2,16 +2,15 @@
 [![CircleCI](https://circleci.com/gh/willmenn/maybe-playable.svg?style=svg)](https://circleci.com/gh/willmenn/maybe-playable)
 # Java Chess implementation
 
-
 **WIP**
 
 ________
 
 To be implemented:
 
-- When the Pawn reaches to the end of the board the player can change the piece to any other.
-- Castling Func
-- Pawn en Passant
+-  When the Pawn reaches to the end of the board the player can change the piece to any other.  
+-  Castling Func  
+-  Pawn en Passant  
 
 OBS: The idea is to put this two func inside the Board class so that the Main class will orchestrate the game.
 
