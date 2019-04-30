@@ -1,6 +1,6 @@
 package chess.pieces;
 
-import chess.parametizedUtil.ChessParameterized;
+import chess.parametized_util.ChessParameterized;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.Parameterized;
@@ -8,12 +8,14 @@ import org.junit.runners.Parameterized;
 import java.util.Arrays;
 import java.util.Collection;
 
-import static chess.parametizedUtil.ChessParameterized.bChessParameterized;
+import static chess.parametized_util.ChessParameterized.bChessParameterized;
 import static chess.pieces.ChessPieces.KING;
 import static org.junit.Assert.assertEquals;
 
 @RunWith(Parameterized.class)
 public class ChessPiecesKingParameterizedTest {
+
+    private ChessParameterized paramTest;
 
     @Parameterized.Parameters
     public static Collection<ChessParameterized> data() {
@@ -64,8 +66,6 @@ public class ChessPiecesKingParameterizedTest {
                         new int[][]{{0, 0}, {0, 21}}, false,
                         "King goes to backwards/right pos"));
     }
-
-    private ChessParameterized paramTest;
 
     public ChessPiecesKingParameterizedTest(ChessParameterized paramTest) {
         this.paramTest = paramTest;

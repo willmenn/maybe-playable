@@ -1,4 +1,4 @@
-package chess.parametizedUtil;
+package chess.parametized_util;
 
 import chess.pieces.Position;
 

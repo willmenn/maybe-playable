@@ -1,18 +1,20 @@
 package chess.pieces;
 
-import chess.parametizedUtil.ChessParameterized;
+import chess.parametized_util.ChessParameterized;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.Parameterized;
 
 import java.util.*;
 
-import static chess.parametizedUtil.ChessParameterized.bChessParameterized;
+import static chess.parametized_util.ChessParameterized.bChessParameterized;
 import static chess.pieces.ChessPieces.BISHOP;
 import static org.junit.Assert.assertEquals;
 
 @RunWith(Parameterized.class)
 public class ChessPiecesBishopParameterizedTest {
+
+    private ChessParameterized paramTest;
 
     @Parameterized.Parameters
     public static Collection<ChessParameterized> data() {
@@ -53,8 +55,6 @@ public class ChessPiecesBishopParameterizedTest {
                         new int[][]{{24, 0}, {0, 0, 0}, {0, 0, 0}}, false,
                         "Bishop not goes to front/Left pos, because is not diagonal"));
     }
-
-    private ChessParameterized paramTest;
 
     public ChessPiecesBishopParameterizedTest(ChessParameterized paramTest) {
         this.paramTest = paramTest;

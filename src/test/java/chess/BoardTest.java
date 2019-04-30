@@ -201,7 +201,7 @@ public class BoardTest {
         int sumOfRooks = 0;
         for (int[] aBoard : board) {
             for (int j = 0; j < board[0].length; j++) {
-                if (ChessPieces.valueOf(aBoard[j]).equals(piece.name())) {
+                if (valueOf(aBoard[j]).equals(piece.name())) {
                     sumOfRooks++;
                 }
             }

@@ -1,14 +1,11 @@
 package chess.pieces;
 
-import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 
 import static chess.pieces.ChessPieces.PAWN;
 import static chess.pieces.ChessTypeOfPieces.BLACK;
 import static chess.pieces.DiagonalMoveValidation.isDiagonalMove;
-import static chess.pieces.GenericMoveValidation.isPawnAbleToGo2Positions;
 
 public class PawnEnPassant {
 

@@ -1,19 +1,21 @@
 package chess.pieces;
 
-import chess.parametizedUtil.ChessParameterized;
+import chess.parametized_util.ChessParameterized;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.Parameterized;
 
 import java.util.Collection;
 
-import static chess.parametizedUtil.ChessParameterized.bChessParameterized;
+import static chess.parametized_util.ChessParameterized.bChessParameterized;
 import static chess.pieces.ChessPieces.ROOK;
 import static java.util.Arrays.asList;
 import static org.junit.Assert.assertEquals;
 
 @RunWith(Parameterized.class)
 public class ChessPiecesRookParameterizedTest {
+
+    private ChessParameterized paramTest;
 
     @Parameterized.Parameters
     public static Collection<ChessParameterized> data() {
@@ -120,8 +122,6 @@ public class ChessPiecesRookParameterizedTest {
                         "Rook cant go left 2 pos, column is the same.")
         );
     }
-
-    private ChessParameterized paramTest;
 
     public ChessPiecesRookParameterizedTest(ChessParameterized paramTest) {
         this.paramTest = paramTest;
