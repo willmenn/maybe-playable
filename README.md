@@ -1,3 +1,4 @@
+[![Codacy Badge](https://api.codacy.com/project/badge/Grade/19825d63d018460487622c1c6ec7822d)](https://app.codacy.com/app/willmenn/maybe-playable?utm_source=github.com&utm_medium=referral&utm_content=willmenn/maybe-playable&utm_campaign=Badge_Grade_Dashboard)
 [![CircleCI](https://circleci.com/gh/willmenn/maybe-playable.svg?style=svg)](https://circleci.com/gh/willmenn/maybe-playable)
 # Java Chess implementation
 
