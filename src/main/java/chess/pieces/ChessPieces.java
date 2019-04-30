@@ -91,7 +91,8 @@ public enum ChessPieces {
     }
 
     private static boolean validatePieceOnlyMovesOneBlockForward(Position position, Position current) {
-        return Math.abs(current.row - position.row) <= 1 && Math.abs(current.column - position.column) <= 1;
+        return Math.abs(current.getRow() - position.getRow()) <= 1 &&
+                Math.abs(current.getColumn() - position.getColumn()) <= 1;
     }
 
     private static TriPredicate<Position, Position, int[][]> knightValidatePos() {
@@ -129,7 +130,7 @@ public enum ChessPieces {
                 return false;
             }
 
-            ChessTypeOfPieces type = ChessTypeOfPieces.valueOf(board[current.row][current.column]);
+            ChessTypeOfPieces type = ChessTypeOfPieces.valueOf(board[current.getRow()][current.getColumn()]);
             if (isNextPosAhead(current, position, board, type)) {
                 return true;
             } else if (isPawnAbleToGo2Positions(current, position, board, type)) {
@@ -183,7 +184,7 @@ public enum ChessPieces {
     }
 
     private static boolean validateDiagonalMovement(Position position, Position current, int[][] board) {
-        if (position.row - current.row >= 0) {
+        if (position.getRow() - current.getRow() >= 0) {
             return validateDiagonalMoveGoingPositiveRows(position, current, board);
         } else {
             return validateDiagonalMoveGoingNegativeRows(position, current, board);
@@ -192,7 +193,7 @@ public enum ChessPieces {
 
     private static boolean validateDiagonalMoveGoingNegativeRows(Position position, Position current, int[][] board) {
         int col = getColumnStartPosition(position, current);
-        for (int i = current.getRow() - 1; i >= position.row; i--) {
+        for (int i = current.getRow() - 1; i >= position.getRow(); i--) {
             if (board[i][col] != 0 && !(i == position.getRow() && col == position.getColumn())) {
                 return false;
             }

@@ -10,18 +10,18 @@ public class DiagonalMoveValidation {
                                             ChessTypeOfPieces type) {
         return isDiagonalForOneMove(current, goTo)
                 && isAhead(goTo, current, 1, type)
-                && !isPosEmpty(board, goTo.row, goTo.column);
+                && !isPosEmpty(board, goTo.getRow(), goTo.getColumn());
     }
 
     static boolean isDiagonalForOneMove(Position current, Position position) {
-        return (position.column - current.column == 1
-                || position.column - current.column == -1)
-                && position.row - current.row != 0;
+        return (position.getColumn() - current.getColumn() == 1
+                || position.getColumn() - current.getColumn() == -1)
+                && position.getRow() - current.getRow() != 0;
     }
 
     static boolean isDiagonalMove(Position current, Position position) {
-        int col = Math.abs(current.column - position.column);
-        int row = Math.abs(current.row - position.row);
+        int col = Math.abs(current.getColumn() - position.getColumn());
+        int row = Math.abs(current.getRow() - position.getRow());
         return col == row;
     }
 

@@ -7,10 +7,10 @@ class GenericMoveValidation {
     static boolean isPawnAbleToGo2Positions(Position current,
                                             Position goTo, int[][] board,
                                             ChessTypeOfPieces type) {
-        return goTo.column.equals(current.column)
-                && (current.row == 1 || current.row == 6)
+        return goTo.getColumn().equals(current.getColumn())
+                && (current.getRow() == 1 || current.getRow() == 6)
                 && isAhead(goTo, current, 2, type)
-                && isPosEmpty(board, goTo.row, goTo.column);
+                && isPosEmpty(board, goTo.getRow(), goTo.getColumn());
     }
 
     static boolean isPosEmpty(int[][] board, int row, int column) {
@@ -22,7 +22,7 @@ class GenericMoveValidation {
     }
 
     private static boolean isOutsideTheBoard(Position position) {
-        return position.column > 7 || position.row > 7
-                || position.column < 0 || position.row < 0;
+        return position.getColumn() > 7 || position.getRow() > 7
+                || position.getColumn() < 0 || position.getRow() < 0;
     }
 }

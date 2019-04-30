@@ -3,8 +3,8 @@ package chess.pieces;
 import java.util.Objects;
 
 public class Position {
-    Integer row;
-    Integer column;
+    private Integer row;
+    private Integer column;
 
     public Position(Integer row, Integer column) {
         this.row = row;

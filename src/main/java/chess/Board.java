@@ -10,8 +10,8 @@ import static chess.pieces.ChessPieces.*;
 import static chess.pieces.ChessTypeOfPieces.*;
 
 class Board {
-    private static final int WHITE_PAWN_INITIAL_POSITION = 1;
-    private static final int BLACK_PAWN_INITIAL_POSITION = 6;
+    private static final int WHITE_PAWN_INITIAL_POSITION = WHITE.getPawnFirstRowPosition();
+    private static final int BLACK_PAWN_INITIAL_POSITION = BLACK.getPawnFirstRowPosition();
     private static final int EMPTY_BLOCK = 0;
     private int[][] board;
     private Map<Character, Integer> rowNames;
