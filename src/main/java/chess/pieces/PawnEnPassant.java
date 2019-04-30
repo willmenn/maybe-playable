@@ -10,7 +10,7 @@ import static chess.pieces.DiagonalMoveValidation.isDiagonalMove;
 public class PawnEnPassant {
 
     /**
-     *This function has the intent to validate if the next capture
+     * This function has the intent to validate if the next capture
      * will be an en passant capture returning a true if it is.
      * Maybe Creating another function to execute the En Passant Capture.
      */
@@ -20,7 +20,8 @@ public class PawnEnPassant {
         int possiblePawnToBeCaptured = board[goTo.getRow() - 1][goTo.getColumn()];
         int possiblePawn = board[from.getRow()][from.getColumn()];
 
-        if (ChessPieces.valueOf(possiblePawnToBeCaptured).equals(PAWN.name())
+        if (isDiagonalMove(from, goTo)
+                && ChessPieces.valueOf(possiblePawnToBeCaptured).equals(PAWN.name())
                 && ChessPieces.valueOf(possiblePawn).equals(PAWN.name())
                 && !ChessTypeOfPieces.valueOf(possiblePawnToBeCaptured).equals(type)) {
 
